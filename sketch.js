@@ -26,6 +26,9 @@ function setup() {
   ANT_SIZE = 14;
   ANT_DIED = 0;
 
+  button = createButton("submit");
+  button.position((windowWidth / 3) * 2, GRID_START_Y + 60);
+
   frameRate(80);
   createCanvas(windowWidth, windowHeight);
   ants = new Ants();
@@ -41,6 +44,7 @@ function draw() {
   loop();
   background(255);
 
+  drawTitle();
   drawText();
   drawTerrain();
   ants.updateAnts();

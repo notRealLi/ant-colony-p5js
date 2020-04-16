@@ -31,7 +31,7 @@ function getDistance(pos1, pos2) {
 // draw the grid
 function drawTerrain() {
   rectMode(CENTER);
-  stroke(0);
+  stroke(BLACK);
 
   for (let i = 0; i < terrains.size(); i++) {
     let t = terrains.get(i);
@@ -82,13 +82,30 @@ function drawTerrain() {
 // ant number display
 function drawText() {
   fill(BLACK);
+  stroke(BLACK);
+  textSize(22);
+  textAlign(LEFT);
+  text(
+    "Number Of Ants Alive: " + ants.size(),
+    (windowWidth / 3) * 2,
+    GRID_START_Y
+  );
+  text(
+    "Number Of Ants Died: " + ANT_DIED,
+    (windowWidth / 3) * 2,
+    GRID_START_Y + 30
+  );
+
+  //const title = store == null ? "Without Learning" : "With Learning";
+  //text(title, windowWidth / 2, 20);
+}
+
+function drawTitle() {
+  fill(BLACK);
+  stroke(BLACK);
   textSize(22);
   textAlign(CENTER);
-  text("Number Of Ants Alive: " + ants.size(), windowWidth / 4, 40);
-  text("Number Of Ants Died: " + ANT_DIED, (windowWidth / 4) * 3, 40);
-
-  const title = store == null ? "Without Learning" : "With Learning";
-  text(title, windowWidth / 2, 20);
+  text("Ant Colony Simulation", windowWidth / 2, 25);
 }
 
 /*---------------------------------------------- Learning Utils ----------------------------------------------*/
