@@ -20,6 +20,7 @@ let ANT_SIZE;
 let ANT_DIED;
 
 let spawnAntBtn;
+let learnBtn;
 
 function copyPosition(position) {
   return createVector(position.x, position.y);
@@ -94,21 +95,31 @@ function drawText() {
   textSize(ts);
   text("Ant Colony Simulation", posX, posY);
 
-  ts *= 0.8;
   textSize(ts);
-  text("Number Of Ants Alive: " + ants.size(), posX, posY + ts * 4);
-  text("Number Of Ants Died: " + ANT_DIED, posX, posY + ts * 5.5);
+  let space = ts * 0.8 * 4;
+  text("Number Of Ants Alive: " + ants.size(), posX, posY + space);
+  space = ts * 0.8 * 5.5;
+  text("Number Of Ants Died: " + ANT_DIED, posX, posY + space);
 
-  //const title = store == null ? "Without Learning" : "With Learning";
-  //text(title, windowWidth / 2, 20);
+  space = ts * 0.8 * 12;
+  const statusText = "Ant Colony Status: ";
+  text(statusText, posX, posY + space);
+
+  space = ts * 0.8 * 14;
+  const learningText =
+    store == null ? "Without Learned Knowledge" : "With Learned Knowledge";
+  text(learningText, posX, posY + space);
 }
 
 function drawButton() {
   const posX = (windowWidth - GRID_END_X) / 2 + GRID_END_X;
   let ts = (windowWidth - GRID_END_X) / 20;
-  const posY = GRID_START_Y + ts * 6;
+  const posY = GRID_START_Y + ts * 5.5;
   spawnAntBtn.style("font-size", ts * 5);
   spawnAntBtn.position(posX - spawnAntBtn.size().width / 2, posY);
+
+  learnBtn.style("font-size", ts * 5);
+  learnBtn.position(posX - learnBtn.size().width / 2, posY + ts * 7);
 }
 
 /*---------------------------------------------- Learning Utils ----------------------------------------------*/

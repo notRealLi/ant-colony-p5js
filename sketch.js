@@ -27,6 +27,7 @@ function setup() {
   ANT_SIZE = 14;
   ANT_DIED = 0;
 
+  // buttons
   const posX = (windowWidth - GRID_END_X) / 2 + GRID_END_X;
   let ts = (windowWidth - GRID_END_X) / 20;
   const posY = GRID_START_Y + ts * 6;
@@ -34,8 +35,13 @@ function setup() {
   spawnAntBtn.style("width", "fit-content");
   spawnAntBtn.style("height", "fit-content");
   spawnAntBtn.position(posX - spawnAntBtn.size().width / 2, posY);
-  console.log(spawnAntBtn.size());
-  spawnAntBtn.mousePressed(spawnAntBtnPressed);
+  spawnAntBtn.mousePressed(spawn);
+
+  learnBtn = createButton("Learn Environment");
+  learnBtn.style("width", "fit-content");
+  learnBtn.style("height", "fit-content");
+  learnBtn.position(posX - learnBtn.size().width / 2, posY + ts * 7);
+  learnBtn.mousePressed(learn);
 
   frameRate(80);
   createCanvas(windowWidth, windowHeight);
@@ -119,12 +125,30 @@ function initTerrains() {
 }
 
 // click mouse to spawn ants
-function spawnAntBtnPressed() {
+function spawn() {
   let antNumber = 1;
   while (antNumber > 0) {
     ants.spawnAnt();
     antNumber--;
   }
+}
+
+function learn() {
+  ants = new Ants();
+  initTerrains();
+  ANT_DIED = 0;
+
+  let problem = new Problem(terrains);
+  store = new QValueStore();
+  let learner = new QLearner(store);
+
+  learner.learn(
+    problem,
+    50000, // iterations
+    0.8, // alpha
+    0.2, // rho
+    0.1
+  ); // nu
 }
 
 function keyPressed() {
