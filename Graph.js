@@ -38,9 +38,6 @@ function Graph(terrains, store) {
 
   // find node with a position
   this.findNodeWithPosition = (position) => {
-    console.log("findNodeWithPosition");
-    // console.log(this.nodes);
-    console.log(position);
     for (let i = 0; i < this.size(); i++)
       if (
         this.get(i).getTerrain().getPosition().x ==
@@ -48,8 +45,6 @@ function Graph(terrains, store) {
         this.get(i).getTerrain().getPosition().y ==
           Math.round(position.y / 5) * 5
       ) {
-        console.log("found node");
-        console.log(this.get(i));
         return this.get(i);
       }
     return null;

@@ -6,6 +6,7 @@ let POISON_NUMBER;
 
 let GRID_START_X;
 let GRID_START_Y;
+let GRID_END_X;
 let NUMBER_ROW;
 let NUMBER_COL;
 let NUM_TERRAINS;
@@ -17,6 +18,8 @@ let BLUE;
 
 let ANT_SIZE;
 let ANT_DIED;
+
+let spawnAntBtn;
 
 function copyPosition(position) {
   return createVector(position.x, position.y);
@@ -83,29 +86,29 @@ function drawTerrain() {
 function drawText() {
   fill(BLACK);
   stroke(BLACK);
-  textSize(22);
-  textAlign(LEFT);
-  text(
-    "Number Of Ants Alive: " + ants.size(),
-    (windowWidth / 3) * 2,
-    GRID_START_Y
-  );
-  text(
-    "Number Of Ants Died: " + ANT_DIED,
-    (windowWidth / 3) * 2,
-    GRID_START_Y + 30
-  );
+  textAlign(CENTER);
+  const posX = (windowWidth - GRID_END_X) / 2 + GRID_END_X;
+  const posY = GRID_START_Y;
+  let ts = (windowWidth - GRID_END_X) / 20;
+
+  textSize(ts);
+  text("Ant Colony Simulation", posX, posY);
+
+  ts *= 0.8;
+  textSize(ts);
+  text("Number Of Ants Alive: " + ants.size(), posX, posY + ts * 4);
+  text("Number Of Ants Died: " + ANT_DIED, posX, posY + ts * 5.5);
 
   //const title = store == null ? "Without Learning" : "With Learning";
   //text(title, windowWidth / 2, 20);
 }
 
-function drawTitle() {
-  fill(BLACK);
-  stroke(BLACK);
-  textSize(22);
-  textAlign(CENTER);
-  text("Ant Colony Simulation", windowWidth / 2, 25);
+function drawButton() {
+  const posX = (windowWidth - GRID_END_X) / 2 + GRID_END_X;
+  let ts = (windowWidth - GRID_END_X) / 20;
+  const posY = GRID_START_Y + ts * 6;
+  spawnAntBtn.style("font-size", ts * 5);
+  spawnAntBtn.position(posX - spawnAntBtn.size().width / 2, posY);
 }
 
 /*---------------------------------------------- Learning Utils ----------------------------------------------*/

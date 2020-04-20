@@ -14,9 +14,10 @@ function setup() {
 
   GRID_START_X = 40 + TERRAIN_SIZE / 2;
   GRID_START_Y = 50 + TERRAIN_SIZE / 2;
-  NUMBER_ROW = 30;
-  NUMBER_COL = 23;
+  NUMBER_ROW = 23;
+  NUMBER_COL = 30;
   NUM_TERRAINS = NUMBER_ROW * NUMBER_COL;
+  GRID_END_X = GRID_START_X + TERRAIN_SIZE * NUMBER_COL;
 
   WHITE = color(255);
   BLACK = color(0);
@@ -26,8 +27,15 @@ function setup() {
   ANT_SIZE = 14;
   ANT_DIED = 0;
 
-  button = createButton("submit");
-  button.position((windowWidth / 3) * 2, GRID_START_Y + 60);
+  const posX = (windowWidth - GRID_END_X) / 2 + GRID_END_X;
+  let ts = (windowWidth - GRID_END_X) / 20;
+  const posY = GRID_START_Y + ts * 6;
+  spawnAntBtn = createButton("Spawn Ant");
+  spawnAntBtn.style("width", "fit-content");
+  spawnAntBtn.style("height", "fit-content");
+  spawnAntBtn.position(posX - spawnAntBtn.size().width / 2, posY);
+  console.log(spawnAntBtn.size());
+  spawnAntBtn.mousePressed(spawnAntBtnPressed);
 
   frameRate(80);
   createCanvas(windowWidth, windowHeight);
@@ -38,23 +46,24 @@ function setup() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+  GRID_END_X = GRID_START_X + TERRAIN_SIZE * NUMBER_COL;
 }
 
 function draw() {
   loop();
   background(255);
 
-  drawTitle();
   drawText();
   drawTerrain();
+  drawButton();
   ants.updateAnts();
 }
 
 function initTerrains() {
   terrains = new Terrains();
 
-  for (let i = 0; i < NUMBER_COL; i++) {
-    for (let j = 0; j < NUMBER_ROW; j++) {
+  for (let i = 0; i < NUMBER_ROW; i++) {
+    for (let j = 0; j < NUMBER_COL; j++) {
       let x = GRID_START_X + j * TERRAIN_SIZE;
       let y = GRID_START_Y + i * TERRAIN_SIZE;
 
@@ -110,7 +119,7 @@ function initTerrains() {
 }
 
 // click mouse to spawn ants
-function mousePressed() {
+function spawnAntBtnPressed() {
   let antNumber = 1;
   while (antNumber > 0) {
     ants.spawnAnt();
