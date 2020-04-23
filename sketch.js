@@ -170,7 +170,7 @@ function keyPressed() {
 
     learner.learn(
       problem,
-      50000, // iterations
+      5000, // iterations
       0.8, // alpha
       0.2, // rho
       0.1
